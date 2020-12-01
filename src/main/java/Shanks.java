@@ -1,12 +1,18 @@
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
 
 public class Shanks {
-    public static int logarithm (int a, int b, int p, FileOutputStream out) {
+    public static int logarithm (int a, int b, int p, FileOutputStream out) throws IOException {
+        StringBuilder stringBuilder = new StringBuilder();
         int n = p - 1;
+        stringBuilder.append("Знайдемо дискретний логарифм " + b + "за основою " + a + " у мультиплікативній групі лишків за модулем " +
+                p + ". Порядок групи: " + n + "\n");
+
         int m = (int) Math.sqrt(n) + 1;
         int [][] Aj = new int[m][2];
+        stringBuilder.append("m = " + m + ". Для j = 0..m-1 знайдемо a^j та відсортуємо за значенням a^j:\n");
         Aj[0][0] = 0;
         Aj[0][1] = 1;
         for (int j = 1; j < m; j++) {
@@ -14,18 +20,38 @@ public class Shanks {
             Aj[j][1] = (int) Math.pow(a, j) % p;
         }
         Arrays.sort(Aj, Comparator.comparingInt(arr -> arr[1]));
+        stringBuilder.append("j\t");
+        for (int l = 0; l < m; l++) {
+            stringBuilder.append(Aj[l][0] + "\t");
+
+        }
+        stringBuilder.append("\n");
+        stringBuilder.append("a^j\t");
+        for (int l = 0; l < m; l++) {
+            stringBuilder.append(Aj[l][1] + "\t");
+
+        }
+        stringBuilder.append("\n");
         int inv_a = Base.inverse(a, p);
         int giant_step = inv_a;
+
         for (int l = 2; l <= m; l++) {
             giant_step = giant_step*inv_a % p;
         }
+        stringBuilder.append("a^(-1) = " + inv_a + ". Тоді a^(-m) = " + giant_step + ".\n");
         int gamma = b;
         for (int i = 0; i < m; i++) {
+            stringBuilder.append("b*a^(-" + i + "m) = " + gamma + ". ");
             for (int k = 0; k < m; k++) {
                 if (Aj[k][1] == gamma) {
+                    stringBuilder.append("Це відповідає j = " + Aj[k][0] + " в таблиці a^j. Отже, шуканий логарифм дорівнює " +
+                            "i*m + j = " + (i*m + Aj[k][0]));
+                    byte[] buffer = stringBuilder.toString().getBytes();
+                    out.write(buffer);
                     return i*m + Aj[k][0];
                 }
             }
+            stringBuilder.append("Такого числа в таблиці a^j немає. Робимо наступний гігантський крок.\n");
             gamma = (gamma * giant_step) % p;
         }
         return -1;

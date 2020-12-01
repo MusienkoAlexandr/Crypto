@@ -3,16 +3,16 @@ import java.io.IOException;
 
 public class Fermat {
 
-    public static int[] factorize(int n, FileOutputStream out) throws IOException {
-        int [] result = new int[2];
-        int t = (int)Math.ceil(Math.sqrt(n));
+    public static long[] factorize(long n, FileOutputStream out) throws IOException {
+        long [] result = new long[2];
+        long t = (long)Math.ceil(Math.sqrt(n));
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Розкладемо " + n + " у добуток методом Ферма.\n");
-        int s = 0;
-        int i;
+        long s = 0;
+        long i;
         for (i = 0; i < t; i++) {
             stringBuilder.append("Крок " + (i + 1) + ". t = " + t + ", t^2 = " + (t*t) + ", s^2 = " + (t*t - n));
-            s = (int) Math.sqrt(t*t - n);
+            s = (long) Math.sqrt(t*t - n);
             if (s*s == t*t - n) {
                 stringBuilder.append(", s = " + s + ". Отже, " + n + " = " + (t - s) + " * " + (t + s) + ".\n");
                 break;
