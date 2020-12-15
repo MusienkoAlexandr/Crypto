@@ -4,20 +4,21 @@ public class Main {
     public static void main(String[] args) {
         try(FileOutputStream fileOutputStream = new FileOutputStream(".//exam.txt", true))
         {
-            //Fermat.factorize(3880941257L, fileOutputStream);
-            //Shanks.logarithm(6, 32, 229, fileOutputStream);
-            //UserRSA alice = new UserRSA("Аглая", 16561, 3933700003L, fileOutputStream);
-            //UserRSA bob = new UserRSA("Броніслав", 17471, 4068384967L, fileOutputStream);
-            //bob.verify(482467467L, 710171332L);
-            //alice.decrypt(710171332L);
-            //bob.encrypt(24081572);
-            //alice.sign(24081572);
-            //UserDiffieHellman boris = new UserDiffieHellman("Борис", 509, 2, 103, "Анна",
-            //        172, fileOutputStream);
-            UserElGamal u1 = new UserElGamal("Адріяна", 229, 6,
-                    113, 85, fileOutputStream);
-            u1.decrypt(u1.encrypt(65, 7));
-            u1.verify(u1.sign(123, 79), 123);
+            UserRSA u1 = new UserRSA("Анна", 13, 3053, fileOutputStream);
+            u1.encrypt(123);
+            u1.decrypt(1894);
+
+            UserElGamal u2 = new UserElGamal("Анна", 509, 2, 118, 118, fileOutputStream);
+            UserElGamal u3 = new UserElGamal("Борис", 509, 2, 202, 509, fileOutputStream);
+            u3.encrypt(123, 12);
+            u2.decrypt(new long[]{128, 38});
+
+            UserElGamal u4 = new UserElGamal("Борис", 509, 2, 1, 1, fileOutputStream);
+            u4.decrypt(new long[]{12, 13});
+
+            UserElGamal u5 = new UserElGamal("Світлана", 509, 2, 118, 118, fileOutputStream);
+            u5.verify(new long[]{60,445}, 108);
+            u5.verify(new long[]{360,31}, 201);
         }
         catch(IOException ex){
 

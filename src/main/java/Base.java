@@ -1,18 +1,20 @@
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.NoSuchElementException;
 
 public class Base {
-    public static long inverse (long a, long module) {
+    public static long inverse (long a, long module) throws IOException {
         long [] x = new long[2];
         long d = extendedGCD(a, module, x);
         if (d > 1) {
-            throw new NoSuchElementException();
-        } else {
-            if (x[0] < 0) {
-                return (module + x[0]);
-            } else {
-                return x[0];
-            }
+            return 1357;
         }
+        if (x[0] < 0) {
+            return (module + x[0]);
+        } else {
+            return x[0];
+        }
+
     }
     public static long extendedGCD (long a, long b, long[] x) {
         //  a < b
