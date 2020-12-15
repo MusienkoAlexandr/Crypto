@@ -14,7 +14,7 @@ public class Fermat {
             stringBuilder.append("Крок " + (i + 1) + ". t = " + t + ", t^2 = " + (t*t) + ", s^2 = " + (t*t - n));
             s = (long) Math.sqrt(t*t - n);
             if (s*s == t*t - n) {
-                stringBuilder.append(", s = " + s + ". Отже, " + n + " = " + (t - s) + " * " + (t + s) + ".\n");
+                stringBuilder.append(", s = " + s + ". Отже, " + n + " = " + (t - s) + " * " + (t + s) + ".\n\n");
                 break;
             } else {
                 stringBuilder.append(", s^2 не є повним квадратом. Шукаємо далі.\n");
@@ -22,7 +22,7 @@ public class Fermat {
             }
         }
         if (i == t){
-            stringBuilder.append("Не вдалося ;(\n");
+            stringBuilder.append("Не вдалося ;(\n\n");
             result[0] = result[1] = -1;
         }
         else {
